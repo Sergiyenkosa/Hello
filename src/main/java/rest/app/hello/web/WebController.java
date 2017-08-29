@@ -22,11 +22,11 @@ public class WebController {
 
     @RequestMapping("/hello/contacts")
     public Iterable<ContactDto> getNameFilteredContactsJson(@RequestParam(value="nameFilter") String nameFilter) {
-        Pattern p = Pattern.compile(nameFilter);
-        Matcher m = p.matcher("Test");
-        m.matches(); //Check regex for validity throws PatternSyntaxException
+        Pattern pattern = Pattern.compile(nameFilter);
+        Matcher matcher = pattern.matcher("Test");
+        matcher.matches(); //Check regex for validity throws PatternSyntaxException
         // that is handled in RestResponseEntityExceptionHandler class.
 
-        return contactDtoRepository.getContactDtosExcludeRegex(nameFilter);
+        return contactDtoRepository.getContactDtosExcludeRegex(pattern);
     }
 }

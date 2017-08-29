@@ -9,6 +9,7 @@ import rest.app.hello.dao.entity.ContactRepository;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Repository
 public class ContactDtoRepositoryImpl implements ContactDtoRepository {
@@ -21,11 +22,11 @@ public class ContactDtoRepositoryImpl implements ContactDtoRepository {
     }
 
     @Override
-    public List<ContactDto> getContactDtosExcludeRegex(String regex) {
+    public List<ContactDto> getContactDtosExcludeRegex(Pattern pattern) {
         List<ContactDto> contactDtos = new LinkedList<>();
 
         for (Contact contact: contactRepository.findAll()) {
-            if (!contact.getName().matches(regex)) {
+            if (!pattern.matcher(contact.getName()).matches()) {
                 contactDtos.add(new ContactDto(contact.getId(), contact.getName()));
             }
         }

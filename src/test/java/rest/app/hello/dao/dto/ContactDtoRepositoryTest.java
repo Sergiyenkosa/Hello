@@ -12,6 +12,7 @@ import rest.app.hello.dao.entity.ContactRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
@@ -36,7 +37,7 @@ public class ContactDtoRepositoryTest {
 
         given(contactRepository.findAll()).willReturn(contacts);
 
-        List<ContactDto> foundContacts = contactDtoRepository.getContactDtosExcludeRegex("^A.*$");
+        List<ContactDto> foundContacts = contactDtoRepository.getContactDtosExcludeRegex(Pattern.compile("^A.*$"));
 
         contacts.remove(2);
 

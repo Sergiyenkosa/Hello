@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyObject;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -32,7 +33,7 @@ public class WebControllerTest {
         List<ContactDto> contactDtos = new ArrayList<>();
         contactDtos.add(new ContactDto(1, "Chuck Norris"));
 
-        given(this.contactDtoRepository.getContactDtosExcludeRegex("^Rembo$"))
+        given(this.contactDtoRepository.getContactDtosExcludeRegex(anyObject()))
                 .willReturn(contactDtos);
 
         this.mvc.perform(get("/hello/contacts?nameFilter=^Rembo$").accept(MediaType.ALL))
@@ -45,7 +46,7 @@ public class WebControllerTest {
         List<ContactDto> contactDtos = new ArrayList<>();
         contactDtos.add(new ContactDto(1, ""));
 
-        given(this.contactDtoRepository.getContactDtosExcludeRegex("^[[[[[$"))
+        given(this.contactDtoRepository.getContactDtosExcludeRegex(anyObject()))
                 .willReturn(contactDtos);
 
         this.mvc.perform(get("/hello/contacts?nameFilter=^[[[[[$").accept(MediaType.ALL))
